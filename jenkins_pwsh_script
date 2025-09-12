@@ -4,26 +4,27 @@ $compiledArtifactFolder='none'
 $scanConfig='Normal scan'
 $aseAppName="$env:JOB_NAME"
 $aseHostname='xxxxxxxxx'
-#$aseToken='C:\ProgramData\HCL\AppScanSource\config\ounceautod.token'
-$sevSecGw='highIssues'
-$maxIssuesAllowed='100'
+$aseToken='C:\ProgramData\HCL\AppScanSource\config\ounceautod.token'
+$highIssuesAllowed='1000'
+$mediumIssuesAllowed='1000'
+$lowIssuesAllowed='1000'
 $workingDirectory="$env:WORKSPACE"
 $buildNumber="$env:BUILD_NUMBER"
  
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscanase_create_application_ase.ps1 -OutFile appscanase_create_application_ase.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscanase_create_application_ase.ps1 -OutFile appscanase_create_application_ase.ps1
 .\appscanase_create_application_ase.ps1
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_create_config_scan_folder_auth.ps1 -OutFile appscansrc_create_config_scan_folder_auth.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscansrc_create_config_scan_folder_auth.ps1 -OutFile appscansrc_create_config_scan_folder_auth.ps1
 .\appscansrc_create_config_scan_folder_auth.ps1  
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_scan.ps1 -OutFile appscansrc_scan.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscansrc_scan.ps1 -OutFile appscansrc_scan.ps1
 .\appscansrc_scan.ps1
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_publish_assessment_to_enterprise.ps1 -OutFile appscansrc_publish_assessment_to_enterprise.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscansrc_publish_assessment_to_enterprise.ps1 -OutFile appscansrc_publish_assessment_to_enterprise.ps1
 .\appscansrc_publish_assessment_to_enterprise.ps1
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscanase_get_pdf_report_from_enterprise.ps1 -OutFile appscanase_get_pdf_report_from_enterprise.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscanase_get_pdf_report_from_enterprise.ps1 -OutFile appscanase_get_pdf_report_from_enterprise.ps1
 .\appscanase_get_pdf_report_from_enterprise.ps1
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_check_security_gate.ps1 -OutFile appscansrc_check_security_gate.ps1
-.\appscansrc_check_security_gate.ps1
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration-GD/main/scripts/appscanase_check_security_gate.ps1 -OutFile appscanase_check_security_gate.ps1
+.\appscanase_check_security_gate.ps1
