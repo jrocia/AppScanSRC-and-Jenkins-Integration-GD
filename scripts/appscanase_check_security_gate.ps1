@@ -44,7 +44,7 @@ if ( $secGw -eq "Disabled" ) {
   }
 write-host "Security Gate enabled.";
 
-if (( $highIssues -gt $highIssuesAllowed ) -or ( $mediumIssues -gt $mediemIssuesAllowed ) -or ( $lowIssues -gt $lowIssuesAllowed )) {
+if (( $highIssues -gt $highIssuesAllowed ) -or ( $mediumIssues -gt $mediumIssuesAllowed ) -or ( $lowIssues -gt $lowIssuesAllowed )) {
   write-host "Security Gate build failed";
   exit 1
   }
