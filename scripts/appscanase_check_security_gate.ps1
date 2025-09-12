@@ -27,10 +27,9 @@ $vulnSummary=$((Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_toke
 [int]$lowIssues = ($vulnSummary | Where {$_.tagName -eq 'Low'}).numMatch
 [int]$infoIssues = ($vulnSummary | Where {$_.tagName -eq 'Information'}).numMatch
 [int]$totalIssues = $highIssues+$mediumIssues+$lowIssues+$infoIssues
-$maxIssuesAllowed = $maxIssuesAllowed -as [int]
 
 write-host "There is $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
-write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
+write-host "The company policy permit less than $highIssuesAllowed high, $mediemIssuesAllowed medium or $lowIssuesAllowed low issues."
 
 # Get the aseAppId from ASE
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession;
@@ -45,23 +44,7 @@ if ( $secGw -eq "Disabled" ) {
   }
 write-host "Security Gate enabled.";
 
-if (( $criticalIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "criticalIssues" )) {
-  write-host "Security Gate build failed";
-  exit 1
-  }
-elseif (( $highIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "highIssues" )) {
-  write-host "Security Gate build failed";
-  exit 1
-  }
-elseif (( $mediumIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "mediumIssues" )) {
-  write-host "Security Gate build failed";
-  exit 1
-  }
-elseif (( $lowIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "lowIssues" )) {
-  write-host "Security Gate build failed";
-  exit 1
-  }
-elseif (( $totalIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "totalIssues" )) {
+if (( $highIssues -gt $highIssuesAllowed ) -or ( $mediumIssues -gt $mediemIssuesAllowed ) -or ( $lowIssues -gt $lowIssuesAllowed )) {
   write-host "Security Gate build failed";
   exit 1
   }
