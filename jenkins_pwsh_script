@@ -9,13 +9,12 @@ $sevSecGw='highIssues'
 $maxIssuesAllowed='100'
 $workingDirectory="$env:WORKSPACE"
 $buildNumber="$env:BUILD_NUMBER"
-$complianceCheck='CWETop25'
  
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscanase_create_application_ase.ps1 -OutFile appscanase_create_application_ase.ps1
 .\appscanase_create_application_ase.ps1
   
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_create_config_scan_folder.ps1 -OutFile appscansrc_create_config_scan_folder.ps1
-.\appscansrc_create_config_scan_folder.ps1  
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_create_config_scan_folder_auth.ps1 -OutFile appscansrc_create_config_scan_folder_auth.ps1
+.\appscansrc_create_config_scan_folder_auth.ps1  
   
 Invoke-WebRequest -Uri https://raw.githubusercontent.com/jrocia/AppScanSRC-and-Jenkins-Integration/main/scripts/appscansrc_scan.ps1 -OutFile appscansrc_scan.ps1
 .\appscansrc_scan.ps1
