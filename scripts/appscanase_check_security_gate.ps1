@@ -29,7 +29,7 @@ $vulnSummary=$((Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_toke
 [int]$totalIssues = $highIssues+$mediumIssues+$lowIssues+$infoIssues
 
 write-host "There is $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
-write-host "The company policy permit less than $highIssuesAllowed high, $mediemIssuesAllowed medium or $lowIssuesAllowed low issues."
+write-host "The company policy permit less than $highIssuesAllowed high, $mediumIssuesAllowed medium or $lowIssuesAllowed low issues."
 
 # Get the aseAppId from ASE
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession;
