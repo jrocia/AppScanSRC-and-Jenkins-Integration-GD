@@ -58,5 +58,7 @@ else{
 write-host "Security Gate passed"
   }
 
+Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"} -Uri "https://$aseHostname`:9443/ase/api/logout" -SkipCertificateCheck | Out-Null
+
 # If you want to delete every files after execution
 # Remove-Item -path $CI_PROJECT_DIR\* -recurse -exclude *.pdf,*.json,*.xml -force
