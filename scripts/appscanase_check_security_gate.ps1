@@ -32,6 +32,19 @@ $maxIssuesAllowed = $maxIssuesAllowed -as [int]
 write-host "There is $criticalIssues critical issues, $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
 write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
 
+# Get the aseAppId from ASE
+$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession;
+$session.Cookies.Add((New-Object System.Net.Cookie("asc_session_id", "$sessionId", "/", "$aseHostname")));
+$aseAppId=$(Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"} -Uri "https://$aseHostname`:9443/ase/api/applications/search?searchTerm=$aseAppName" -SkipCertificateCheck | ConvertFrom-Json).id;
+
+$aseAppAtrib = $(Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"} -Uri "https://$aseHostname`:9443/ase/api/applications/$aseAppId" -SkipCertificateCheck|ConvertFrom-Json);
+$secGw=$($aseAppAtrib.attributeCollection.attributeArray | Where-Object { $_.name -eq "Security Gate" } | Select-Object -ExpandProperty value)
+if ( $secGw -eq "Disabled" ) {
+  write-host "Security Gate disabled.";
+  exit 0
+  }
+write-host "Security Gate enabled.";
+
 if (( $criticalIssues -gt $maxIssuesAllowed ) -and ( "$sevSecGw" -eq "criticalIssues" )) {
   write-host "Security Gate build failed";
   exit 1
