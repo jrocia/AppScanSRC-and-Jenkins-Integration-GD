@@ -44,7 +44,7 @@ if ($compiledArtifactFolder -ne "none"){
   write-output "RUNAS AUTO" >> script.scan
   write-output "of `"$WorkingDirectory\$compiledArtifactFolder`"" >> script.scan
   write-output "sc `"$aseAppName-$BuildNumber.ozasmt`" -scanconfig `"$scanConfig`" -name `"$aseAppName-$BuildNumber`"" >> script.scan
-  write-output "report Findings pdf-detailed `"$aseAppName-$BuildNumber.pdf`" `"$aseAppName-$BuildNumber.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
+  #write-output "report Findings pdf-detailed `"$aseAppName-$BuildNumber.pdf`" `"$aseAppName-$BuildNumber.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
   write-output "pa `"$aseAppName-$BuildNumber.ozasmt`"" >> script.scan
   write-output "exit" >> script.scan
   
@@ -56,7 +56,7 @@ else{
   write-output "RUNAS AUTO" >> script.scan
   write-output "of `"$WorkingDirectory`"" >> script.scan
   write-output "sc `"$aseAppName-$BuildNumber.ozasmt`" -scanconfig `"$scanConfig`" -name `"$aseAppName-$BuildNumber`" -sourcecodeonly true" >> script.scan
-  write-output "report Findings pdf-detailed `"$aseAppName-$BuildNumber.pdf`" `"$aseAppName-$BuildNumber.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
+  #write-output "report Findings pdf-detailed `"$aseAppName-$BuildNumber.pdf`" `"$aseAppName-$BuildNumber.ozasmt`" -includeSrcBefore:5 -includeSrcAfter:5 -includeTrace:definitive -includeTrace:suspect -includeHowToFix" >> script.scan
   write-output "pa `"$aseAppName-$BuildNumber.ozasmt`"" >> script.scan
   write-output "exit" >> script.scan
   
