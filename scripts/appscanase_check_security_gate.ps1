@@ -29,7 +29,7 @@ $vulnSummary=$((Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_toke
 [int]$totalIssues = $highIssues+$mediumIssues+$lowIssues+$infoIssues
 $maxIssuesAllowed = $maxIssuesAllowed -as [int]
 
-write-host "There is $criticalIssues critical issues, $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
+write-host "There is $highIssues high issues, $mediumIssues medium issues, $lowIssues low issues and $infoIssues informational issues."
 write-host "The company policy permit less than $maxIssuesAllowed $sevSecGw severity."
 
 # Get the aseAppId from ASE
