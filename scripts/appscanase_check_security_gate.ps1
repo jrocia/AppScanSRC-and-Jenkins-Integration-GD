@@ -13,15 +13,13 @@
 # limitations under the License.
 
 write-host "======== Step: Checking Security Gate ========"
-# Get the scanname variable and jobid variable from file scanName_var.txt and jobId_var.txt created by script appscanase_scan.ps1
 $scanName=(Get-Content .\scanName_var.txt);
-$jobId=(Get-Content .\jobId_var.txt);
 # ASE Authentication getting sessionId
 $sessionId=$(Invoke-WebRequest -Method "POST" -Headers @{"Accept"="application/json"} -ContentType 'application/json' -Body "{`"keyId`": `"$aseApiKeyId`",`"keySecret`": `"$aseApiKeySecret`"}" -Uri "https://$aseHostname`:9443/ase/api/keylogin/apikeylogin" -SkipCertificateCheck | Select-Object -Expand Content | ConvertFrom-Json | select -ExpandProperty sessionId);
 # Get vulnerabilities total from ASE API and parse into json variable
 $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession;
 $session.Cookies.Add((New-Object System.Net.Cookie("asc_session_id", "$sessionId", "/", "$aseHostname")));
-$vulnSummary=$((Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"}-Uri "https://$aseHostname`:9443/ase/api/summaries/issues_v2?query=scanname%3D$scanName%20($jobId)&group=Severity" -SkipCertificateCheck).content | ConvertFrom-json)
+$vulnSummary=$((Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"}-Uri "https://$aseHostname`:9443/ase/api/summaries/issues_v2?query=scanname%3D$scanName&group=Severity" -SkipCertificateCheck).content | ConvertFrom-json)
 # Security Gate steps
 [int]$criticalIssues = ($vulnSummary | Where {$_.tagName -eq 'Critical'}).numMatch
 [int]$highIssues = ($vulnSummary | Where {$_.tagName -eq 'High'}).numMatch
