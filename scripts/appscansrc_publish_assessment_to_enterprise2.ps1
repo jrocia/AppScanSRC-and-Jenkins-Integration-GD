@@ -11,7 +11,7 @@ catch{
 	write-output "There is no OZASMT file.";
 	break;
 }
-$aseAppName=$ozasmt.assessmentrun.assessmentconfig.application.name
+#$aseAppName=$ozasmt.assessmentrun.assessmentconfig.application.name
 write-host "The application name is $aseAppName"
 # ASE authentication
 $sessionId=$(Invoke-WebRequest -Method "POST" -Headers @{"Accept"="application/json"} -ContentType 'application/json' -Body "{`"keyId`": `"$aseApiKeyId`",`"keySecret`": `"$aseApiKeySecret`"}" -Uri "https://$aseHostname`:9443/ase/api/keylogin/apikeylogin" -SkipCertificateCheck | Select-Object -Expand Content | ConvertFrom-Json | select -ExpandProperty sessionId);
