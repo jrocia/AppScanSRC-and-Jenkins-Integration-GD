@@ -41,7 +41,6 @@ do{
 	$ErrorActionPreference = 'SilentlyContinue';
 	$importStatus=(Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"}  -Uri "https://$aseHostname`:9443/ase/api/issueimport/summarylog" -SkipCertificateCheck);
 	write-host "Running";
-	write-host "$importStatus";
 	sleep 5;
 }until ($importStatus -match "completed")
 
