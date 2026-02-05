@@ -2,6 +2,7 @@
 $scanName="$aseAppName`-$BuildNumber"
 write-output $scanName > scanName_var.txt
 
+$ozasmtFile = Get-ChildItem -Filter *.ozasmt -Name
 # Load Ozasmt file in a variable and get the aseAppName
 try{
 	[XML]$ozasmt = Get-Content $ozasmtFile -ErrorAction stop;
