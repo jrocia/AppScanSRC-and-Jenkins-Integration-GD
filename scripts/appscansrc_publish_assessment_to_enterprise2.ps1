@@ -36,10 +36,15 @@ $Form = [ordered]@{
 	}
 # Import ozasmt file 
 Invoke-WebRequest -Method Post -Form $Form -Headers @{"Asc_xsrf_token"="$sessionId"} -WebSession $session -Uri "https://$aseHostname`:9443/ase/api/issueimport/$aseAppId/6/" -SkipCertificateCheck | Out-Null;
-#Invoke-WebRequest -Method Post -Form @{"scanName"="$scanName";"uploadedfile"=Get-Item -Path $ozasmtFile;} -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId";"X-Requested-With"="XMLHttpRequest";"ContentType"="text/plain"}  -Uri "https://$aseHostname`:9443/ase/api/issueimport/$aseAppId/6/" -SkipCertificateCheck | Out-Null;
-# Rename imported file
-$ozasmtFile=$ozasmtFile.replace('.\','')
-Rename-Item -Path "$ozasmtFile" -NewName "imported-$ozasmtFile"
+
+do{
+	$ErrorActionPreference = 'SilentlyContinue';
+	$importStatus=(Invoke-WebRequest -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId"}  -Uri "https://$aseHostname`:9443/ase/api/issueimport/summarylog" -SkipCertificateCheck);
+	write-host "Running";
+	write-host "$importStatus";
+	sleep 5;
+}until ($importStatus -match "completed")
+
 write-host "$ozasmtFile file with scanName $scanName imported in Application $aseAppName";
 # ASE Logout session
 Invoke-WebRequest -Method GET -WebSession $session -Headers @{"Asc_xsrf_token"="$sessionId";"X-Requested-With"="XMLHttpRequest"}  -Uri "https://$aseHostname`:9443/ase/api/logout" -SkipCertificateCheck | Out-Null;
